@@ -2,15 +2,17 @@ import openai
 import os
 from dotenv import load_dotenv
 
-load_dotenv(dotenv_path="D:\\zadanie\\secrets.env")
-file_path = "Zadanie dla JJunior AI Developera - tresc artykulu.txt"
+secrets_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'secrets.env')
+file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Zadanie dla JJunior AI Developera - tresc artykulu.txt')
+szablon_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'szablon.html')
+load_dotenv(secrets_path)
 api_key = os.getenv("OPENAI_API_KEY")
 
 
 if os.path.exists(file_path):
-    print("file found")
+    print("znaleziono plik")
 else:
-    print("file not found")
+    print("nie znalezionmo pliku")
     exit()
 
 
@@ -18,8 +20,8 @@ def read_article(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         text = file.read()
         if not text:
-            print(f"file {file_path} is empty")
-            return  None
+            print(f"plik {file_path} jest pusty")
+            exit()
         return text
     
 article_text = read_article(file_path)
@@ -28,6 +30,7 @@ article_text = read_article(file_path)
 
 
 def text_article_process(article_text):
+    print("oczekiwanie na odpowiedz AI")
     prompt_parts = [
         "Proszę przekonwertować poniższy artykuł na kod HTML, używając odpowiednich tagów HTML do strukturyzacji treści. ",
         "Zidentyfikuj miejsca, w których warto dodać grafiki i oznacz je tagiem <img> z atrybutem src='image_placeholder.jpg'. ",
@@ -38,6 +41,7 @@ def text_article_process(article_text):
         "powinien być umieszczony na osobnej linii. Użyj wcięć, aby kod był czytelny i łatwy do edytowania.",
         "Proszę nie używać \n między elementami w jednej linii (np. <h1>\nText</h1>), tylko w osobnych liniach dla każdego tagu HTML. ",
         "kod HTML musi zawierać jedynie treść między bez html doctype i head i body.nie doączaj znaczinków <head> <html> i <body>",
+        "*Tekst opracowany przez AI... powienien być zapisany w elemencie <footer>",
         "Artykuł: {article_text}"
     ]
     prompt = "".join(prompt_parts).format(article_text=article_text)
@@ -47,28 +51,35 @@ def text_article_process(article_text):
         model = "gpt-4",
         max_tokens = 2048
     )
-
+    
     if response.choices:
-        html_content = response.choices[0].message.content
-        formated_html = format_html_content(html_content)
-        return formated_html
+        format_html_content(response.choices[0].message.content)
+        
     else:
-        print("No response from AI")
+        print("brak odpowiedzi od AI")
         exit()
         
     
    
 def format_html_content(html_content):
-    formated_html = html_content.replace('>', '>\n')
     with open("artykul.html", "w", encoding='utf-8') as file:
-       file.write(formated_html)
+       file.write(html_content)
     print("HTML zapisany w pliku artykul.html")
-    return formated_html.strip();        
+    write_podglad(szablon_path, html_content)
+         
+def write_podglad(szablon_path, artykul_content):
+    with open(szablon_path, "r", encoding='utf-8')  as file:
+        szablon = file.read()
+    podglad_content = szablon.replace('<!--miejsce na artykul.html-->', artykul_content)
+    with open("podglad.html", "w", encoding='utf-8') as file:
+        file.write(podglad_content)
+    print("podgląd stworzony")
         
+      
 
 if api_key:
     openai.api_key = api_key
-    processed_text = text_article_process(article_text)
+    text_article_process(article_text)
 else:
-    print("API key not found")
+    print("API klucz nie znaleziony")
     exit()

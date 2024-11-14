@@ -1,0 +1,21 @@
+body{
+    background-color:aquamarine; 
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+i{
+    color: gray;
+}
+h2, h1{
+    text-align: center;
+}
+
+img, figcaption{
+    margin-left: 20px;
+}
+p{
+    font-size: 1.3rem;
+}
+footer{
+    color: gray;
+}
