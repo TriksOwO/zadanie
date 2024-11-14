@@ -37,6 +37,7 @@ def text_article_process(article_text):
         "Kod HTML nie powinien zawierać żadnych \n w jednej linii. Każdy element HTML, taki jak <h1>, <p>, <img> lub <footer>, ",
         "powinien być umieszczony na osobnej linii. Użyj wcięć, aby kod był czytelny i łatwy do edytowania.",
         "Proszę nie używać \n między elementami w jednej linii (np. <h1>\nText</h1>), tylko w osobnych liniach dla każdego tagu HTML. ",
+        "kod HTML musi zawierać jedynie treść między <body> i</body> bez html doctype i head.nie doączaj znaczinków <head> <html> i <body>",
         "Artykuł: {article_text}"
     ]
     prompt = "".join(prompt_parts).format(article_text=article_text)
@@ -46,12 +47,10 @@ def text_article_process(article_text):
         model = "gpt-4",
         max_tokens = 2048
     )
-    print(f" responses {response}")
+
     if response.choices:
         html_content = response.choices[0].message.content
-        print(f"AI before convert: \n {html_content}")
         formated_html = format_html_content(html_content)
-        print(f"Text after format: \n {formated_html}")
         return formated_html
     else:
         print("No response from AI")
@@ -60,6 +59,9 @@ def text_article_process(article_text):
    
 def format_html_content(html_content):
     formated_html = html_content.replace('>', '>\n')
+    with open("artykul.html", "w", encoding='utf-8') as file:
+       file.write(formated_html)
+    print("HTML zapisany w pliku artykul.html")
     return formated_html.strip();        
         
 
