@@ -34,10 +34,10 @@ def text_article_process(article_text):
         "Dodaj atrybut alt do każdego obrazka z dokładnym promptem, który możemy użyć do wygenerowania grafiki. ",
         "Wstaw podpisy pod obrazkami używając tagu <figcaption> lub odpowiedniego tagu HTML. ",
         "Proszę wygenerować kod HTML, w którym każdy tag HTML będzie umieszczony na osobnej linii.",
-        "Kod HTML nie powinien zawierać żadnych \n w jednej linii. Każdy element HTML, taki jak <h1>, <p>, <img> lub <footer>, ",
+        "Kod HTML nie powinien zawierać żadnych \n w jednej linii. Każdy element HTML, taki jak <h1>, <p>, <img> lub <footer>,",
         "powinien być umieszczony na osobnej linii. Użyj wcięć, aby kod był czytelny i łatwy do edytowania.",
         "Proszę nie używać \n między elementami w jednej linii (np. <h1>\nText</h1>), tylko w osobnych liniach dla każdego tagu HTML. ",
-        "kod HTML musi zawierać jedynie treść między <body> i</body> bez html doctype i head.nie doączaj znaczinków <head> <html> i <body>",
+        "kod HTML musi zawierać jedynie treść między bez html doctype i head i body.nie doączaj znaczinków <head> <html> i <body>",
         "Artykuł: {article_text}"
     ]
     prompt = "".join(prompt_parts).format(article_text=article_text)
@@ -54,7 +54,8 @@ def text_article_process(article_text):
         return formated_html
     else:
         print("No response from AI")
-        return None
+        exit()
+        
     
    
 def format_html_content(html_content):
