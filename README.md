@@ -1,7 +1,7 @@
 # zadanie
- zadanie rekrutacja
+zadanie rekrutacyjne<br>
 program Python polegający na odczytaniu pliku tekstowego i przekazanie go do OpenAI wraz z promtem. Z wygenerowanego wyniku
-tworzony jest kod HTML , który jest następnie zapisywany w pliku. Wygenerowana odpowiedź AI zapisywana jest w pliku artykul.html, dodatkowo jest szablon kodu HTML - szablon.html. odpowiedź wygenerowana przez AI dodawana jest do szablonu w odpowiednie miejsce między elemandami <body> i nastepnie tworzony jest gotowy plik html - podglad.html z zastosowaniem prostych styli CSS
+tworzony jest kod HTML , który jest następnie zapisywany w pliku. Wygenerowana odpowiedź AI zapisywana jest w pliku artykul.html, dodatkowo jest szablon kodu HTML - szablon.html. odpowiedź wygenerowana przez AI dodawana jest automatycznie dzięki Pythonowi do szablonu w odpowiednie miejsce między elemantami "body" i nastepnie tworzony jest gotowy plik html - podglad.html z zastosowaniem prostych styli CSS
 
 struktura plików wyjściowych:
 1. artykul.html - Plik HTML zawierajacą samą odpowiedź od AI
