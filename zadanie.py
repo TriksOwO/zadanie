@@ -2,9 +2,10 @@ import openai
 import os
 from dotenv import load_dotenv
 
-secrets_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'secrets.env')
-file_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'Zadanie dla JJunior AI Developera - tresc artykulu.txt')
-szablon_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'szablon.html')
+script_path = os.path.dirname(os.path.realpath(__file__))
+secrets_path = os.path.join(script_path, 'secrets.env')
+file_path = os.path.join(script_path, 'Zadanie dla JJunior AI Developera - tresc artykulu.txt')
+szablon_path = os.path.join(script_path, 'szablon.html')
 load_dotenv(secrets_path)
 api_key = os.getenv("OPENAI_API_KEY")
 
